@@ -1,10 +1,8 @@
-import { Router } from "express";
-import { getCountries } from "../controllers/countries.controller.js";
+const express = require('express');
+const router = express.Router();
 
-const router = Router();
+const { getCountries } = require('../controllers/countries.controller');
 
-router.get("/countries", getCountries);
+router.get('/countries', getCountries);
 
-export default router;
-
-Create countries routes
+module.exports = router;
