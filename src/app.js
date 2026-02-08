@@ -1,13 +1,17 @@
-import express from "express";
-import countriesRoutes from "./routes/countries.routes.js";
-
+const express = require('express');
 const app = express();
+
+const countriesRoutes = require('./routes/countries.routes');
 
 app.use(express.json());
 
 // Rutas
-app.use(countriesRoutes);
+app.use('/api', countriesRoutes);
 
-export default app;
+app.get('/', (req, res) => {
+  res.json({
+    message: 'API Countries funcionando 🚀'
+  });
+});
 
-Create app configuration
+module.exports = app;
