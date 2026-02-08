@@ -1,26 +1,25 @@
-import fetch from "node-fetch";
+const axios = require('axios');
 
-const API_URL = "https://restcountries.com/v3.1/all";
+const API_URL = 'https://restcountries.com/v3.1/all';
 
-export const getAllCountries = async () => {
+const getAllCountries = async () => {
   try {
-    const response = await fetch(API_URL);
+    const response = await axios.get(API_URL);
 
-    if (!response.ok) {
-      throw new Error("Error al consumir la API externa");
-    }
-
-    const data = await response.json();
-
-    return data.map(country => ({
+    const countries = response.data.map(country => ({
       name: country.name.common,
-      capital: country.capital ? country.capital[0] : "No tiene",
-      region: country.region
+      capital: country.capital ? country.capital[0] : 'N/A',
+      region: country.region,
+      population: country.population,
+      flag: country.flags?.png
     }));
 
+    return countries;
   } catch (error) {
-    throw error;
+    throw new Error('Error al consumir la API de países');
   }
 };
 
-Create countries service
+module.exports = {
+  getAllCountries
+};
