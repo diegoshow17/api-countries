@@ -1,13 +1,21 @@
-import { getAllCountries } from "../services/countries.service.js";
+const { getAllCountries } = require('../services/countries.service');
 
-export const getCountries = async (req, res) => {
+const getCountries = async (req, res) => {
   try {
     const countries = await getAllCountries();
-    res.status(200).json(countries);
+
+    res.status(200).json({
+      success: true,
+      data: countries
+    });
   } catch (error) {
     res.status(500).json({
-      error: "No se pudieron obtener los países"
+      success: false,
+      message: error.message
     });
   }
 };
-Create countries controller
+
+module.exports = {
+  getCountries
+};
